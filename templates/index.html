@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerald Cofee</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 430px;
+      height: 95vh;
+      background: #111;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 255, 180, 0.08);
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* TOPO */
+    .top-bar {
+      padding: 18px 20px 10px;
+      background: #111;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .top-bar h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: #00d084;
+      margin-top: 4px;
+    }
+
+    /* BOTÕES TIPO STORIES / REELS */
+    .quick-actions {
+      display: flex;
+      gap: 14px;
+      padding: 16px 16px 12px;
+      overflow-x: auto;
+      background: #111;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .quick-actions::-webkit-scrollbar {
+      display: none;
+    }
+
+    .action-btn {
+      min-width: 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .action-circle {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00c853, #00e676);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 0 15px rgba(0, 255, 100, 0.25);
+      transition: 0.2s;
+    }
+
+    .action-btn:nth-child(2) .action-circle {
+      background: linear-gradient(135deg, #ff1744, #ff5252);
+      box-shadow: 0 0 15px rgba(255, 23, 68, 0.25);
+    }
+
+    .action-btn:nth-child(3) .action-circle {
+      background: linear-gradient(135deg, #7c4dff, #9575cd);
+      box-shadow: 0 0 15px rgba(124, 77, 255, 0.25);
+    }
+
+    .action-btn:hover .action-circle {
+      transform: scale(1.06);
+    }
+
+    .action-label {
+      font-size: 12px;
+      color: #ddd;
+      text-align: center;
+    }
+
+    /* MENSAGENS */
+    .messages {
+      flex: 1;
+      padding: 18px 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background:
+        radial-gradient(circle at top right, rgba(0,255,128,0.04), transparent 25%),
+        radial-gradient(circle at bottom left, rgba(124,77,255,0.04), transparent 25%),
+        #111;
+    }
+
+    .messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .messages::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+
+    .msg {
+      max-width: 82%;
+      padding: 13px 16px;
+      border-radius: 18px;
+      line-height: 1.55;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #00c853, #00e676);
+      color: #000;
+      border-bottom-right-radius: 6px;
+      font-weight: 500;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: #1d1d1d;
+      color: #f1f1f1;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-bottom-left-radius: 6px;
+    }
+
+    .typing {
+      opacity: 0.7;
+      font-style: italic;
+    }
+
+    /* INPUT */
+    .bottom-bar {
+      padding: 14px;
+      background: #111;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1b1b1b;
+      border-radius: 18px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .icon-btn.listening {
+      color: #ff5252;
+      animation: pulse 1s infinite;
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 15px;
+      padding: 6px 4px;
+    }
+
+    .send-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #00c853, #00e676);
+      color: black;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.06);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- TOPO -->
+    <div class="top-bar">
+      <h1>Gerald Coffee</h1>
+      <div class="status-text" id="statusText">Pronto</div>
+    </div>
+
+    <!-- BOTÕES ESTILO FOTO / REELS -->
+    <div class="quick-actions">
+      <div class="action-btn">
+        <div class="action-circle">📷</div>
+        <div class="action-label">Foto</div>
+      </div>
+
+      <div class="action-btn">
+        <div class="action-circle">🎬</div>
+        <div class="action-label">Reels</div>
+      </div>
+
+      <div class="action-btn" id="toggleVoiceAction">
+        <div class="action-circle">🔊</div>
+        <div class="action-label">Voz</div>
+      </div>
+    </div>
+
+    <!-- MENSAGENS -->
+    <div class="messages" id="messages"></div>
+
+    <!-- INPUT -->
+    <div class="bottom-bar">
+      <div class="input-wrapper">
+        <button class="icon-btn" id="micBtn" title="Falar">🎤</button>
+        <input type="text" id="messageInput" placeholder="Digite sua mensagem...">
+        <button class="send-btn" id="sendBtn">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("messageInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const micBtn = document.getElementById("micBtn");
+    const statusText = document.getElementById("statusText");
+    const toggleVoiceAction = document.getElementById("toggleVoiceAction");
+
+    let vozAtivada = true;
+    let recognition = null;
+    let ouvindo = false;
+    let currentAudio = null;
+
+    // =========================
+    // MENSAGENS
+    // =========================
+    function addMessage(text, sender, extraClass = "") {
+      const div = document.createElement("div");
+      div.className = `msg ${sender} ${extraClass}`;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    // =========================
+    // TOCAR ÁUDIO
+    // =========================
+    function tocarAudio(url) {
+      if (!vozAtivada || !url) return;
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      currentAudio = new Audio(url);
+
+      currentAudio.onplay = () => {
+        statusText.textContent = "Falando...";
+      };
+
+      currentAudio.onended = () => {
+        statusText.textContent = "Pronto";
+      };
+
+      currentAudio.onerror = () => {
+        statusText.textContent = "Erro no áudio";
+      };
+
+      currentAudio.play().catch(err => {
+        console.error("Erro ao tocar áudio:", err);
+        statusText.textContent = "Erro ao tocar";
+      });
+    }
+
+    // =========================
+    // ENVIAR MENSAGEM
+    // =========================
+    async function sendMessage(customMessage = null) {
+      const message = (customMessage || input.value).trim();
+      if (!message) return;
+
+      addMessage(message, "user");
+      input.value = "";
+      statusText.textContent = "Pensando...";
+
+      const typingMsg = addMessage("Aetherius está pensando...", "bot", "typing");
+
+      try {
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await response.json();
+
+        typingMsg.remove();
+        addMessage(data.reply, "bot");
+
+        if (data.audio) {
+          tocarAudio(data.audio);
+        } else {
+          statusText.textContent = "Pronto";
+        }
+
+      } catch (error) {
+        typingMsg.remove();
+        addMessage("Deu erro na comunicação com o servidor.", "bot");
+        statusText.textContent = "Erro";
+        console.error(error);
+      }
+    }
+
+    // =========================
+    // ENTER ENVIA
+    // =========================
+    input.addEventListener("keydown", function(event) {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+
+    sendBtn.addEventListener("click", () => sendMessage());
+
+    // =========================
+    // TOGGLE VOZ
+    // =========================
+    toggleVoiceAction.addEventListener("click", () => {
+      vozAtivada = !vozAtivada;
+
+      const circle = toggleVoiceAction.querySelector(".action-circle");
+      const label = toggleVoiceAction.querySelector(".action-label");
+
+      if (!vozAtivada) {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+        circle.textContent = "🔇";
+        label.textContent = "Mudo";
+        statusText.textContent = "Voz desligada";
+      } else {
+        circle.textContent = "🔊";
+        label.textContent = "Voz";
+        statusText.textContent = "Voz ligada";
+      }
+    });
+
+    // =========================
+    // MICROFONE
+    // =========================
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.lang = "pt-BR";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        ouvindo = true;
+        micBtn.classList.add("listening");
+        statusText.textContent = "Ouvindo...";
+      };
+
+      recognition.onend = () => {
+        ouvindo = false;
+        micBtn.classList.remove("listening");
+        statusText.textContent = "Pronto";
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        input.value = transcript;
+        sendMessage(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Erro no reconhecimento:", event.error);
+        statusText.textContent = "Erro no microfone";
+      };
+
+      micBtn.addEventListener("click", () => {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+
+        if (ouvindo) {
+          recognition.stop();
+        } else {
+          recognition.start();
+        }
+      });
+
+    } else {
+      micBtn.disabled = true;
+      micBtn.textContent = "🚫";
+      micBtn.title = "Seu navegador não suporta microfone";
+    }
+  </script>
+</body>
+</html>

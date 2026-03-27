@@ -1,0 +1,37 @@
+Criar um serviço no portal da Microsoft de cognitiveservices
+usar o ponto de extremidade
+Ex:
+AZURE_SPEECH_KEY=
+AZURE_SPEECH_REGION=eastus
+
+Principais Vozes Femininas
+pt-BR-FranciscaNeural: Voz padrão, equilibrada e muito versátil para narrações e assistentes.
+
+pt-BR-ThalitaNeural: Uma voz que soa um pouco mais jovem e casual.
+
+pt-BR-BrendaNeural: Tom de voz focado em clareza, excelente para conteúdos informativos.
+
+pt-BR-ElzaNeural: Uma voz com timbre mais maduro.
+
+pt-BR-GiovannaNeural: Focada em um estilo de conversação natural.
+
+pt-BR-LeilaNeural: Ótima para leituras longas e audiolivros.
+
+Principais Vozes Masculinas
+pt-BR-AntonioNeural: A voz masculina mais comum, soa profissional e amigável.
+
+pt-BR-DonatoNeural: Uma voz com tom mais profundo e autoritário.
+
+pt-BR-FabioNeural: Estilo de voz leve e dinâmico.
+
+pt-BR-HumbertoNeural: Voz clara, ideal para tutoriais e treinamentos.
+
+pt-BR-JulioNeural: Tom de voz mais suave.
+
+pt-BR-NicolauNeural: Focado em narração expressiva.
+
+Vozes Infantis
+pt-BR-YaraNeural: Voz feminina infantil.
+
+pt-BR-ValerioNeural: Voz masculina infantil.
+
