@@ -2,4 +2,5 @@ flask
 python-dotenv
 google-genai
 azure-cognitiveservices-speech
+huggingface-hub
 gunicorn
