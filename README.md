@@ -45,9 +45,11 @@ python -m venv .venv
 .venv\Scripts\activate
 # No Linux/Mac:
 source .venv/bin/activate
+
 4. Instalar Dependências
 Bash
 pip install -r requirements.txt
+
 5. Configurar Variáveis de Ambiente
 Crie um arquivo chamado .env na raiz do projeto e adicione suas credenciais:
 
