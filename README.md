@@ -37,3 +37,38 @@ Este projeto integra o que há de mais moderno em IA generativa e síntese de vo
 1. **Clone o repositório:**
    ```bash
    git clone [https://github.com/geraldocafe1/chat_com_Voz_Microsoft.git](https://github.com/geraldocafe1/chat_com_Voz_Microsoft.git)
+
+3. Criar e Ativar Ambiente Virtual
+Bash
+python -m venv .venv
+# No Windows:
+.venv\Scripts\activate
+# No Linux/Mac:
+source .venv/bin/activate
+4. Instalar Dependências
+Bash
+pip install -r requirements.txt
+5. Configurar Variáveis de Ambiente
+Crie um arquivo chamado .env na raiz do projeto e adicione suas credenciais:
+
+Snippet de código
+HF_TOKEN=seu_token_hugging_face
+AZURE_SPEECH_KEY=sua_chave_azure
+AZURE_SPEECH_REGION=sua_regiao_azure (ex: eastus)
+HF_MODEL=meta-llama/Meta-Llama-3-8B-Instruct
+
+6. Iniciar o Servidor
+Bash
+python app.py
+Acesse em: http://127.0.0.1:5000
+
+🌐 Deploy no Render
+Para colocar o Gerald Coffee online:
+
+Conecte este repositório ao Render.com.
+
+Defina o Build Command como: pip install -r requirements.txt.
+
+Defina o Start Command como: gunicorn app:app.
+
+Adicione as chaves do seu .env na aba Environment do painel do Render.
