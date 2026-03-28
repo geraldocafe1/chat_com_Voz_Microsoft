@@ -1,7 +1,5 @@
 # ☕ Gerald Coffee - O Chat Ranzinza
 
-`![Screenshot do Gerald Coffee](screenshot.png)`
-
 ![Status](https://img.shields.io/badge/Status-Online-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Flask](https://img.shields.io/badge/Framework-Flask-lightgrey)
